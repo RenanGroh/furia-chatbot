@@ -39,7 +39,7 @@ export function curiosidadeCommand(ctx: Context) {
   const curiosidade = getCuriosidadeParaUsuario(userId);
 
   ctx.reply(
-    `📢 Curiosidade FURIA:\n${curiosidade}`,
+    `🤓👆 Curiosidade FURIA:\n${curiosidade}`,
     Markup.inlineKeyboard([
       Markup.button.callback('🔁 Me manda outra', 'nova_curiosidade')
     ])

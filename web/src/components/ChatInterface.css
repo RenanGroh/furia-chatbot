@@ -1,0 +1,59 @@
+.chat-interface {
+    flex-grow: 1; /* Faz o chat ocupar todo o espaço do left-panel */
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden; /* Para conter bordas internas */
+    background-color: #fff;
+  }
+  
+  .message-list {
+    flex-grow: 1; /* Área das mensagens ocupa o espaço disponível */
+    padding: 10px;
+    overflow-y: auto; /* Barra de rolagem se necessário */
+    min-height: 300px; /* Altura mínima */
+    background-color: #fdfdfd;
+  }
+  
+  .message-input {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+    background-color: #f0f0f0;
+  }
+  
+  .message-input input {
+    flex-grow: 1;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-right: 5px;
+  }
+  
+  .message-input button {
+    padding: 8px 15px;
+    border: none;
+    background-color: #555;
+    color: white;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .message-input button:hover {
+    background-color: #333;
+  }
+
+  .chat-interface {
+    /* ... (outros estilos) */
+    /* Pode ser útil definir um flex-grow ou min-height/max-height aqui */
+    /* Exemplo: Fazer o chat tentar ocupar mais espaço verticalmente */
+    flex-grow: 1;
+    min-height: 400px; /* Garante uma altura mínima */
+  }
+  
+  .message-list {
+    /* ... (outros estilos) */
+    flex-grow: 1; /* Garante que a lista preencha o espaço no chat-interface */
+    /* max-height: 500px; */ /* Limita a altura máxima se necessário */
+  }

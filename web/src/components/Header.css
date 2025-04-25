@@ -1,0 +1,63 @@
+.app-header {
+  /* === Posicionamento e Dimensões === */
+  position: fixed; /* Fixa no topo */
+  top: 0;
+  left: 0;
+  right: 0; /* Ocupa toda a largura */
+  height: 65px; /* Altura definida (ajuste conforme necessário) */
+  z-index: 1000; /* Garante que fique acima de outros elementos como a sidebar */
+
+  /* === Estilo e Flexbox === */
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; NÃO USAR MAIS para alinhar título à esquerda */
+  padding: 0 25px; /* Padding horizontal, vertical é controlado pela altura */
+  background-color: #1a1a1a;
+  color: #fff;
+  border-bottom: 2px solid #ffd700; /* Borda amarela */
+  box-sizing: border-box;
+}
+
+.header-left-section {
+  display: flex; /* Alinha logo e título horizontalmente */
+  align-items: center;
+  flex-grow: 1; /* Ocupa espaço disponível empurrando actions para direita (alternativa ao margin-left: auto) */
+}
+
+.furia-logo {
+  height: 45px; /* Ajuste a altura do logo */
+  width: auto; /* Mantém proporção */
+  margin-right: 15px; /* Espaço entre logo e título */
+  object-fit: contain; /* Garante que a imagem caiba sem distorcer/cortar */
+}
+
+.header-title-container h1 {
+  margin: 0;
+  font-size: 1.6em;
+  line-height: 1;
+  font-weight: bold;
+  white-space: nowrap; /* Evita quebra de linha no título */
+}
+
+.header-actions {
+  /* Se header-left-section não usar flex-grow: 1, descomente a linha abaixo */
+  /* margin-left: auto; */ /* Empurra o botão para a direita */
+  flex-shrink: 0; /* Evita que o container do botão encolha */
+}
+
+.header-actions .store-link {
+  /* Estilos do link da loja (mantidos) */
+  background-color: #ffc200;
+  color: #1a1a1a;
+  padding: 8px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  white-space: nowrap;
+}
+
+.header-actions .store-link:hover {
+  background-color: #e6af00;
+  transform: scale(1.03);
+}

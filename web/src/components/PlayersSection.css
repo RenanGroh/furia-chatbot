@@ -1,0 +1,23 @@
+.players-section {
+  /* Herda estilos de 'section' do App.css */
+}
+
+.player-cards-container {
+  display: flex; /* Coloca os cards lado a lado */
+  flex-wrap: wrap; /* Permite quebrar linha se não couber */
+  gap: 10px; /* Espaço entre os cards */
+  justify-content: space-around; /* Distribui espaço */
+}
+
+.player-card-placeholder {
+  width: 50px; /* Largura pequena para caber vários */
+  height: 70px;
+  background-color: #e0e0e0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7em;
+  color: #888;
+}

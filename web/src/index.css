@@ -1,0 +1,16 @@
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Inclui padding e border no tamanho total */
+  font-family: sans-serif;
+  background-color: #f0f2f5; /* Um cinza claro para o fundo fora do app */
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}

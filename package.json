@@ -1,14 +1,21 @@
 {
   "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.1",
     "@types/node": "^22.14.1",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.8.3"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^16.5.0",
+    "express": "^5.1.0",
     "telegraf": "^4.16.3"
   },
   "scripts": {
-    "dev": "ts-node-dev src/main.ts"
+    "dev": "ts-node-dev src/main-telegram.ts",
+    "start:webapi": "node dist/main-webapi.js",
+    "build": "tsc",
+    "dev:webapi": "ts-node-dev --respawn --transpile-only src/main-webapi.ts"
   }
 }

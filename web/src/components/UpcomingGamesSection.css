@@ -1,0 +1,16 @@
+.upcoming-games-section {
+  /* Herda estilos de 'section' do App.css */
+}
+
+.game-info-container {
+  min-height: 60px; /* Altura mínima para o conteúdo */
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #eee;
+  border-radius: 3px;
+}
+
+.game-info-container p {
+  margin: 5px 0;
+  font-size: 0.9em;
+}

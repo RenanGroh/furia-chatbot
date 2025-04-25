@@ -1,0 +1,1 @@
+import './infra/web-api/server'; // Apenas importa para iniciar o servidor

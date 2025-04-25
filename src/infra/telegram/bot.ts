@@ -43,7 +43,7 @@ bot.action("nova_curiosidade", (ctx) => {
   const nova = curiosidadePorUsuario(userId);
 
   ctx.reply(
-    `👆🤓 Curiosidade FURIA:\n${nova}`,
+    `☝️🤓 Curiosidade FURIA:\n${nova}`,
     Markup.inlineKeyboard([
       Markup.button.callback("🔁 Me manda outra", "nova_curiosidade"),
     ])

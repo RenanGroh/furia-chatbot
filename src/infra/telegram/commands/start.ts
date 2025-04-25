@@ -1,4 +1,4 @@
-import { Context, Markup } from 'telegraf';
+import { Context, Markup } from "telegraf";
 
 export function startCommand(ctx: Context) {
   ctx.reply(
@@ -9,10 +9,12 @@ Eu sou seu contato oficial para tudo sobre o time de CS da FURIA!
 📋 Aqui está o que você pode fazer:`,
 
     Markup.inlineKeyboard([
-      [Markup.button.callback('📅 Próximo Jogo', 'chamar_proximojogo')],
-      [Markup.button.callback('📢 Curiosidade FURIA', 'nova_curiosidade')],
-      [Markup.button.callback('🎮 Jogadores', 'chamar_jogadores')],
-      [Markup.button.callback('📸 Mídia Oficial', 'midia_oficial')],
+      [Markup.button.callback("📅 Próximo Jogo", "chamar_proximojogo")],
+      [Markup.button.callback("📅 Campeonato atual e Tabela", "chamar_campeonato_e_tabela")],
+      [Markup.button.callback("☝️🤓 Curiosidade FURIA", "nova_curiosidade")],
+      [Markup.button.callback("🐯 Jogadores", "chamar_jogadores")],
+      [Markup.button.callback("📸 Mídia Oficial", "midia_oficial")],
+      [Markup.button.callback("🔥 Vista o estilo FURIA!", "site_oficial")],
     ])
   );
 }

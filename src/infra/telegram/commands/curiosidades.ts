@@ -5,7 +5,8 @@ const curiosidades = [
   "🎯 KSCERATO é um dos jogadores com maior KD (kill/death ratio) da América do Sul.",
   "🧠 A FURIA investe pesado em psicologia e performance dos jogadores.",
   "🌎 O time já participou de Majors nos EUA, Europa e Ásia.",
-  "👊 O estilo agressivo da FURIA é uma das marcas registradas do time, especialmente com o arT como IGL.",
+  "👊 O estilo agressivo da FURIA é uma das marcas registradas do time.",
+  "🎯 Fallen é lenda viva do CS e sua habilidade com a AWP é reconhecida mundialmente."
 ];
 
 // 🔒 Mapeia usuários para um array de índices já enviados

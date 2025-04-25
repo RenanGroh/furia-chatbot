@@ -1,54 +1,38 @@
 import "dotenv/config";
-import { Context, Markup } from "telegraf";
 import { bot } from "./infra/telegram/bot";
+
+// Comandos
 import { jogadoresCommand } from "./infra/telegram/commands/jogadores";
 import { curiosidadeCommand } from "./infra/telegram/commands/curiosidades";
 import { proximoJogoCommand } from "./infra/telegram/commands/proximojogo";
 import { campeonatoTabela } from "./infra/telegram/commands/campeonato_e_tabela";
+import { startCommand } from "./infra/telegram/commands/start";
 
-const timeout = 60 * 1000; // 1 minuto
-let lastInteractionTime = Date.now(); // Marca o tempo da última interação
+// Ações (inline buttons)
+import { setupStatsActions } from "./infra/telegram/actions/stats";
+import { setupCuriosidadesActions } from "./infra/telegram/actions/curiosidades";
+import { setupMidiaActions } from "./infra/telegram/actions/midia";
+import { setupLojaActions } from "./infra/telegram/actions/loja";
+import { setupCampeonatoTabela } from "./infra/telegram/actions/capeonato_e_tabela";
 
-bot.action("chamar_jogadores", (ctx: Context) => {
-  jogadoresCommand(ctx); // Chama a função para mostrar os jogadores
-});
 
-bot.action("chamar_campeonato_e_tabela", (ctx: Context) => {
-  campeonatoTabela(ctx); // Chama a função para mostrar os jogadores
-});
 
-bot.action("chamar_curiosidade", (ctx: Context) => {
-  curiosidadeCommand(ctx); // Chama a função para mostrar curiosidades
-});
 
-bot.action("chamar_proximojogo", (ctx: Context) => {
-  proximoJogoCommand(ctx); // Chama a função para o proximo jogo
-});
+// start
+bot.start(startCommand);
 
-// Função de mídia oficial
-bot.action("midia_oficial", (ctx: Context) => {
-  if (Date.now() - lastInteractionTime > timeout) {
-    ctx.reply("⏳ Interação expirou! Por favor, tente novamente.");
-    return;
-  }
+// Actions do menu
+bot.action("chamar_curiosidade", curiosidadeCommand);
+bot.action("chamar_jogadores", jogadoresCommand);
+bot.action("chamar_proximojogo", proximoJogoCommand);
+bot.action("chamar_campeonato_e_tabela", campeonatoTabela);
 
-  ctx.reply(
-    "📸 Acompanhe a FURIA nas redes sociais:\n\n" +
-      "- Instagram: https://instagram.com/furiagg\n" +
-      "- Twitter: https://twitter.com/FURIA"
-  );
-  lastInteractionTime = Date.now();
-
-  bot.action("site_oficial", (ctx: Context) => {
-    if (Date.now() - lastInteractionTime > timeout) {
-      ctx.reply("⏳ Interação expirou! Por favor, tente novamente.");
-      return;
-    }
-
-    ctx.reply("Vista-se de forma FURIOSA!\n" + "https://www.furia.gg");
-    lastInteractionTime = Date.now();
-  });
-});
+// Modularização das ações
+setupStatsActions(bot);
+setupCuriosidadesActions(bot);
+setupMidiaActions(bot);
+setupLojaActions(bot);
+setupCampeonatoTabela(bot);
 
 // Inicia o bot
 bot.launch();

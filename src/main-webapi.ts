@@ -1,1 +1,3 @@
-import './infra/web-api/server'; // Apenas importa para iniciar o servidor
+import './infra/web-api/server';
+import dotenv from 'dotenv';
+dotenv.config();

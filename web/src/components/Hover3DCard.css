@@ -1,0 +1,72 @@
+.card-perspective-wrapper {
+  /* Define a perspectiva para o efeito 3D */
+  perspective: 1000px;
+  display: inline-block; /* Ou block, dependendo do layout */
+}
+
+.hover-3d-card {
+  --transition-speed: 0.15s; /* Velocidade da transição de retorno */
+
+  position: relative; /* Necessário para o pseudo-elemento de brilho */
+  display: inline-block; /* Para ajustar ao tamanho da imagem */
+  border-radius: 15px; /* Ajuste conforme o raio da sua imagem de carta */
+  overflow: hidden; /* Importante para cortar o brilho e a imagem */
+  transform-style: preserve-3d; /* Habilita o espaço 3D para a transformação */
+  cursor: pointer;
+
+  /* Aplica a transformação usando as variáveis CSS */
+  transform: rotateX(var(--rotateX)) rotateY(var(--rotateY));
+
+  /* Transição SUAVE APENAS quando o mouse SAI do card */
+  transition: transform var(--transition-speed) ease-out;
+
+  /* Sombra para o efeito flutuante */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  transition: transform var(--transition-speed) ease-out,
+    box-shadow 0.3s ease-out; /* Transição também na sombra */
+}
+
+/* Efeito de sombra mais pronunciado no hover */
+.hover-3d-card.is-hovering {
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
+  /* Poderia adicionar um leve scale aqui também */
+  /* transform: scale(1.02) rotateX(var(--rotateX)) rotateY(var(--rotateY)); */
+}
+
+.hover-3d-card .card-image-content {
+  display: block; /* Remove espaço extra abaixo da imagem */
+  width: 100%;
+  height: auto;
+  border-radius: inherit; /* Herda o border-radius do container */
+  user-select: none; /* Impede seleção da imagem ao arrastar */
+  -webkit-user-drag: none; /* Impede arrastar imagem */
+}
+
+/* Pseudo-elemento para o efeito de brilho/luz */
+.hover-3d-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: inherit; /* Herda o border-radius */
+
+  /* Gradiente radial que simula a luz, posicionado pelas variáveis CSS */
+  background: radial-gradient(
+    circle at var(--glowX) var(--glowY),
+    var(--glowColor) 0%,
+    /* Cor e opacidade inicial do brilho */ rgba(255, 255, 255, 0) 50%
+      /* Transparente mais longe */
+  );
+
+  /* Opacidade controlada pela variável CSS */
+  opacity: var(--glowOpacity);
+
+  /* Transição suave para a opacidade do brilho */
+  transition: opacity 0.2s ease-out;
+
+  /* Garante que não interfira com eventos do mouse */
+  pointer-events: none;
+  z-index: 1; /* Fica por cima da imagem */
+}

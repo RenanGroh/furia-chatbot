@@ -1,0 +1,74 @@
+/* web/src/components/StatsPanel.css */
+.stats-panel {
+    background: rgba(30, 30, 30, 0.85); /* Fundo escuro semitransparente */
+    backdrop-filter: blur(10px); /* Efeito de vidro fosco */
+    color: #e0e0e0;
+    padding: 25px 30px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    max-width: 450px; /* Largura máxima */
+    height: fit-content; /* Ajusta altura ao conteúdo */
+    max-height: 80vh; /* Altura máxima com scroll */
+    overflow-y: auto; /* Scroll se necessário */
+  }
+  
+  .stats-panel h2 {
+    margin-top: 0;
+    margin-bottom: 5px;
+    color: #fff;
+    font-size: 1.8em;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 10px;
+  }
+  
+  .stats-panel .real-name {
+     text-align: center;
+     font-style: italic;
+     margin-bottom: 20px;
+     color: #ccc;
+     font-size: 0.9em;
+  }
+  
+  .stats-panel .player-photo {
+      display: block;
+      width: 120px; /* Tamanho da foto */
+      height: 120px;
+      border-radius: 50%; /* Foto redonda */
+      object-fit: cover; /* Garante que a imagem cubra sem distorcer */
+      margin: 0 auto 20px auto; /* Centraliza */
+      border: 3px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .info-grid {
+    display: grid;
+    grid-template-columns: auto 1fr; /* Label e Value */
+    gap: 12px 15px; /* Espaço vertical e horizontal */
+    align-items: center;
+  }
+  
+  .info-item .label {
+    font-weight: bold;
+    color: #aaa;
+    text-align: right;
+    font-size: 0.9em;
+  }
+  
+  .info-item .value {
+    color: #fff;
+    font-size: 1em;
+    display: flex; /* Para alinhar flag e nome */
+    align-items: center;
+  }
+  
+  .info-item .value img { /* Estilo da bandeira */
+      width: 24px;
+      height: auto;
+      margin-right: 8px;
+  }
+  
+  /* Custom scrollbar (opcional) */
+  .stats-panel::-webkit-scrollbar { width: 6px; }
+  .stats-panel::-webkit-scrollbar-track { background: transparent; }
+  .stats-panel::-webkit-scrollbar-thumb { background-color: rgba(255, 255, 255, 0.2); border-radius: 3px; }

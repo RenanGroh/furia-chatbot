@@ -14,3 +14,7 @@ body,
 *:after {
   box-sizing: inherit;
 }
+
+body.no-scroll {
+  overflow: hidden; /* Impede o scroll da página principal */
+}

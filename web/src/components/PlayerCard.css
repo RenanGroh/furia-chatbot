@@ -1,0 +1,78 @@
+/* Definir um tema básico (opcional) */
+.card.furia-theme {
+    /* Pode sobrescrever variáveis CSS do cards.css se existirem, ou definir estilos */
+    /* Exemplo: border-image: url(/path/to/furia-border.png) 10 stretch; */
+    /* background: linear-gradient(to bottom, #333, #111); */
+  }
+  
+  /* Estilos para as classes que adicionamos */
+  .nationality-flag {
+    width: 24px; /* Ajuste o tamanho */
+    height: auto;
+    margin-right: 6px;
+    vertical-align: middle;
+    border: 1px solid rgba(0, 0, 0, 0.2); /* Bordinha sutil */
+  }
+  
+  .role-text {
+    font-weight: bold;
+    font-size: 0.9em;
+    vertical-align: middle;
+  }
+  
+  .pokemon-type { /* Garante alinhamento vertical se reutilizar a classe */
+      display: flex;
+      align-items: center;
+  }
+  
+  /* Ajustar o cabeçalho se necessário */
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 5px; /* Ajustar conforme necessidade */
+    /* O CSS original pode ter estilos específicos, verifique e ajuste */
+  }
+  /* Sobrescrever nome para talvez ser maior */
+  .card.furia-theme .pokemon-name {
+      font-size: 1.4em; /* Exemplo */
+  }
+  
+  
+  /* Área de stats */
+  .stats-container {
+    padding: 10px;
+    font-size: 0.85em;
+    min-height: 40px; /* Dar um espaço mínimo */
+    /* Estilizar fundo/borda se quiser separar visualmente */
+    /* background-color: rgba(255, 255, 255, 0.1); */
+    /* border-top: 1px solid rgba(0, 0, 0, 0.1); */
+  }
+  
+  .stats-container .real-name {
+    margin: 0 0 5px 0;
+    font-style: italic;
+    color: #eee; /* Ajustar cor se o fundo do card for escuro */
+  }
+  
+  /* Ajustar imagem se necessário */
+  .card.furia-theme .pokemon-image img {
+    width: 100%;
+    height: auto; /* Ou defina uma altura fixa e use object-fit */
+    display: block;
+  }
+  
+  /* Rodapé */
+  .card.furia-theme .card-footer {
+    text-align: center;
+    font-size: 0.75em;
+    padding: 5px;
+    color: #ccc; /* Ajustar cor */
+    border-top: 1px solid rgba(255, 255, 255, 0.1); /* Linha separadora sutil */
+  }
+  
+  /* Remover elementos específicos de Pokémon que não queremos */
+  /* Exemplo: Se houver uma área de "attacks", podemos escondê-la */
+  /* .card.furia-theme .pokemon-attacks {
+    display: none;
+  } */

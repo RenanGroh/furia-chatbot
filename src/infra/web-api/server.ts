@@ -7,7 +7,7 @@ import {
   HarmBlockThreshold,
 } from "@google/generative-ai";
 // Importe seu serviço para buscar dados da FURIA (se for usar RAG)
-import { getProximoJogo } from "../../core/furiaService";
+import { getJogadoresAtuais, getProximoJogo } from "../../core/furiaService";
 
 dotenv.config();
 
@@ -57,6 +57,7 @@ app.post(
   async (req: Request, res: Response): Promise<void> => {
     try {
       let contextInfo = "";
+      let rosterContexto = "";
       const userMessage = req.body.message;
 
       if (!userMessage) {
@@ -65,6 +66,11 @@ app.post(
         return;
       }
       console.log("Recebido do usuário:", userMessage);
+      console.log("Mensagem Lower:", `"${userMessage.toLowerCase()}"`); // Veja se tem espaços estranhos
+      console.log(
+        'lowerUserMessage.includes("time atual"):',
+        userMessage.toLowerCase().includes("time atual")
+      );
 
       // --- BLOCO PARA ADICIONAR CONTEXTO (RAG) ---
       if (userMessage.toLowerCase().includes("próximo jogo")) {
@@ -72,20 +78,47 @@ app.post(
         try {
           const jogo = await getProximoJogo();
           if (jogo) {
-            // Atribui valor à variável contextInfo externa SE encontrar o jogo
-            contextInfo = ` Contexto adicional: O próximo jogo da FURIA é contra ${
+            contextInfo = ` Contexto (Próximo Jogo): A FURIA joga contra ${
               jogo.adversario
-            } em ${new Date(jogo.data).toLocaleDateString(
-              "pt-BR"
-            )} pelo campeonato ${jogo.campeonato}.`; // Adicionei um espaço no início para separar
-            console.log("Contexto RAG adicionado:", contextInfo);
+            } em ${new Date(jogo.data).toLocaleDateString("pt-BR")} (${
+              jogo.campeonato
+            }).`;
+            console.log("Contexto RAG Jogo adicionado:", contextInfo);
           } else {
             console.log("Contexto RAG: Próximo jogo não encontrado.");
           }
         } catch (e) {
-          console.error("Erro ao buscar contexto RAG:", e);
+          console.error("Erro buscando contexto RAG (Jogo):", e);
         }
-      } // --- FIM DO BLOCO PARA ADICIONAR CONTEXTO ---
+      }
+
+      if (
+        userMessage.toLowerCase().includes("time atual") ||
+        userMessage.toLowerCase().includes("roster") ||
+        userMessage.toLowerCase().includes("jogadores atuais") ||
+        userMessage.toLowerCase().includes("escalação")
+      ) {
+        console.log("*** ENTROU NO IF DO ROSTER RAG! ***");
+        console.log("Mensagem inclui termo sobre escalação, buscando RAG...");
+        try {
+          const jogadoresInfo = await getJogadoresAtuais();
+          if (jogadoresInfo && jogadoresInfo.roster) {
+            // Adiciona um espaço antes e formata a lista
+            rosterContexto = ` Contexto (Escalação Atual): ${jogadoresInfo.roster.replace(
+              /,/g,
+              ", "
+            )}.`;
+            console.log("Contexto RAG Roster adicionado:", rosterContexto);
+          } else {
+            console.log("Contexto RAG: Roster atual não encontrado.");
+          }
+        } catch (e) {
+          console.error("Erro buscando contexto RAG (Roster):", e);
+        }
+      }
+      console.log("--- FIM VERIFICAÇÃO ROSTER RAG ---");
+      const combinedContext = `${contextInfo}${rosterContexto}`;
+      // --- FIM DO BLOCO PARA ADICIONAR CONTEXTO ---
 
       const chatHistory = [
         {
@@ -93,14 +126,13 @@ app.post(
           role: "user",
           parts: [
             {
-              text: `Você é um chatbot assistente especializado na equipe
-              de e-sports FURIA (especialmente CS2). Seja simpático, informativo
-              e um verdadeiro fã da pantera! Responda perguntas sobre jogadores
-              atuais (como FalleN, kscerato, yuurih, arT, chelo), próximos jogos,
-              história, conquistas e notícias recentes. Se precisar de informações
-              específicas como data/hora exata de jogos futuros, avise que você pode
-              buscar mas pode demorar um pouco ou não ter a info 100% atualizada, 
-              a menos que ela seja fornecida no contexto. ${contextInfo}`,
+              text: `Você é um chatbot assistente especializado na equipe de e-sports FURIA (CS2).
+              Seja simpático, informativo e fã! Responda perguntas sobre o time,lembrando que o time atual tem o Fallen,
+              Yuurih, Yekindar, KSCERATO e Molodoy, alem disso reposta sobre os
+              próximos jogos, história, conquistas e notícias. **Se um contexto sobre o estado atual 
+              (como escalação ou próximo jogo) for fornecido adiante nesta instrução ou nas mensagens seguintes,
+              priorize essa informação para sua resposta.** Se não houver contexto, use seu conhecimento geral,
+              mas avise que a informação pode não ser a mais recente.${combinedContext}`,
             },
           ],
         },

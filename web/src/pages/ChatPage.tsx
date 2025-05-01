@@ -1,10 +1,20 @@
 import React from 'react';
 import ChatInterface from '../components/ChatInterface'; // Ajuste o caminho se necessário
 
-const ChatPage: React.FC = () => {
-  // O componente ChatInterface já está dentro de uma section implicitamente
-  // pelo CSS do .main-content-area section. Se quiser um container
-  // específico pode adicionar <section>...</section> aqui.
-  return <ChatInterface />;
+interface Message {
+  id: number;
+  text: string;
+  sender: 'user' | 'bot';
+}
+
+// Defina as props que ChatPage recebe
+interface ChatPageProps {
+  messages: Message[];
+  setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
+}
+
+const ChatPage: React.FC<ChatPageProps> = ({ messages, setMessages }) => { // Recebe as props
+  // Passa as props para ChatInterface
+  return <ChatInterface messages={messages} setMessages={setMessages} />;
 };
 export default ChatPage;

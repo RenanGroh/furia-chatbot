@@ -1,6 +1,6 @@
 import React from 'react';
 import { PlayerData } from '../types/player';
-import './StatsPanel.css'; // Criaremos
+import './StatsPanel.css'; 
 
 interface StatsPanelProps {
   player: PlayerData;
@@ -33,14 +33,14 @@ const StatsPanel: React.FC<StatsPanelProps> = ({ player }) => {
          </div>
          {player.stats?.rating && (
              <div className="info-item">
-                 <span className="label">Rating 2.0:</span>
+                 <span className="label">Rating:</span>
                  <span className="value">{player.stats.rating.toFixed(2)}</span>
              </div>
          )}
-          {player.stats?.kda && (
+          {player.stats?.kd && (
              <div className="info-item">
-                 <span className="label">KDR / DPR / ADR:</span>
-                 <span className="value">{player.stats.kda}</span>
+                 <span className="label">KD:</span>
+                 <span className="value">{player.stats.kd}</span>
              </div>
          )}
           {player.stats?.hsPercent && (

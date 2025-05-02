@@ -1,60 +1,62 @@
 .app-footer {
-    /* === Posicionamento === */
-    position: fixed; /* Fixa na base */
-    bottom: 0;
-    left: 0;
-    right: 0; /* Ocupa toda a largura */
-    height: 50px; /* Altura definida (ajuste conforme necessário) */
-    z-index: 1000; /* Garante que fique acima de outros elementos */
-  
-    /* === Estilo === */
-    background-color: #1a1a1a;
-    color: #aaa;
-    padding: 0 20px; /* Padding horizontal */
-    font-size: 0.9em;
-    border-top: 1px solid #333;
-    box-sizing: border-box;
-  
-    /* === Conteúdo Interno (Flexbox) === */
-    display: flex; /* Usado para alinhar o .footer-content */
-    align-items: center; /* Centraliza verticalmente */
-    justify-content: center; /* Centraliza horizontalmente */
-  }
-  
-  /* Ajustar o container do conteúdo se necessário */
+  /* === Posicionamento === */
+  position: fixed; /* Fixa na base */
+  bottom: 0;
+  left: 0;
+  right: 0; /* Ocupa toda a largura */
+  height: 50px; /* Altura definida (ajuste conforme necessário) */
+  z-index: 1000; /* Garante que fique acima de outros elementos */
+
+  /* === Estilo === */
+  background-color: #1a1a1a;
+  color: #aaa;
+  padding: 0 20px; /* Padding horizontal */
+  font-size: 0.9em;
+  border-top: 1px solid #333;
+  box-sizing: border-box;
+
+  /* === Conteúdo Interno (Flexbox) === */
+  display: flex; /* Usado para alinhar o .footer-content */
+  align-items: center; /* Centraliza verticalmente */
+  justify-content: center; /* Centraliza horizontalmente */
+}
+
+/* Ajustar o container do conteúdo se necessário */
+.footer-content {
+  width: 100%; /* Ocupa a largura do footer */
+  max-width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.social-links a {
+  color: #aaa;
+  text-decoration: none;
+  margin: 0 10px; /* Aumentar um pouco o espaço */
+  font-size: 1.4em; /* Ajuste o tamanho dos ícones */
+  transition: color 0.2s ease, transform 0.2s ease;
+  display: inline-block; /* Para aplicar transform */
+}
+
+.social-links a:hover {
+  color: #fff;
+  transform: scale(1.15); /* Efeito de zoom suave no hover */
+}
+
+/* Media Query (mantida) */
+@media (max-width: 600px) {
   .footer-content {
-     width: 100%; /* Ocupa a largura do footer */
-     max-width: 1200px;
-     display: flex;
-     justify-content: space-between;
-     align-items: center;
-     flex-wrap: wrap;
-     gap: 10px;
+    flex-direction: column;
+    justify-content: center;
   }
-  
-  .social-links a {
-    color: #aaa;
-    text-decoration: none;
-    margin: 0 8px;
-    font-size: 1.2em;
-    transition: color 0.2s ease;
+  .social-links {
+    margin-bottom: 5px; /* Reduzir espaço */
   }
-  
-  .social-links a:hover {
-    color: #fff;
+  .app-footer {
+    height: auto; /* Altura automática em telas pequenas */
+    padding: 10px 15px; /* Ajustar padding */
   }
-  
-  /* Media Query (mantida) */
-  @media (max-width: 600px) {
-    .footer-content {
-      flex-direction: column;
-      justify-content: center;
-    }
-    .social-links {
-      margin-bottom: 5px; /* Reduzir espaço */
-    }
-    .app-footer {
-        height: auto; /* Altura automática em telas pequenas */
-        padding: 10px 15px; /* Ajustar padding */
-    }
-  }
+}

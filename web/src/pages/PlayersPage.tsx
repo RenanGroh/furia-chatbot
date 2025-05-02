@@ -46,7 +46,7 @@ const furiaPlayersData: PlayerData[] = [
   {
    nickname: "molodoy",
    realName: "Danil Golubenko",
-   cardImageUrl: "/images/players/place-holder.png",
+   cardImageUrl: "/images/players/molodoy-card.png",
    photoImageUrl: "/images/players/molodoy.png",
    role: "AWPer",
    nationality: { name: "Cazaquistão", flagUrl: "/images/flags/Cz.svg" },

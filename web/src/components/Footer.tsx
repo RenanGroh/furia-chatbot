@@ -11,8 +11,8 @@ const Footer: React.FC = () => {
   const socialLinks = [
     { label: 'Twitter', href: 'https://twitter.com/furia', Icon: FaTwitter },
     { label: 'Instagram', href: 'https://www.instagram.com/furiagg', Icon: FaInstagram },
-    { label: 'YouTube', href: 'https://www.youtube.com/', Icon: FaYoutube },
-    { label: 'Twitch', href: 'https://www.twitch.tv/', Icon: FaTwitch },
+    { label: 'YouTube', href: 'https://www.youtube.com/@FURIAggCS', Icon: FaYoutube },
+    { label: 'Twitch', href: 'https://www.twitch.tv/furiatv/', Icon: FaTwitch },
     { label: 'Telegram', href: 'https://t.me/FuriaCS2_bot', Icon: FaTelegramPlane },
     { label: 'Site Oficial', href: 'https://furia.gg', Icon: FaLink }, 
   ];

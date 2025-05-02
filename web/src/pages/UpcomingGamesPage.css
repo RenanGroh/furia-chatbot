@@ -1,0 +1,261 @@
+.upcoming-games-page {
+    padding: 20px;
+  }
+  
+  .upcoming-games-page h2 {
+    text-align: center;
+    margin-bottom: 40px; /* Mais espaço */
+    color: #1a202c; /* Cor mais escura */
+    font-size: 1.8em;
+    font-weight: 700;
+  }
+  
+  /* Estados de Loading e Info */
+  .loading-state, .info-state {
+    text-align: center;
+    padding: 50px 20px;
+    background-color: #fff; /* Fundo branco */
+    border-radius: 12px;
+    color: #4a5568; /* Cinza médio */
+    font-size: 1.1em;
+    border: 1px solid #e2e8f0; /* Borda sutil */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    max-width: 600px;
+    margin: 20px auto;
+  }
+  .info-state.error {
+    color: #c53030; /* Vermelho */
+    background-color: #fed7d7; /* Fundo vermelho claro */
+    border-color: #feb2b2;
+  }
+  
+  /* Loading spinner simples */
+  .loading-state span {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #FFC200; /* Amarelo Furia */
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-right: 10px;
+    vertical-align: middle;
+  }
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+  
+  
+  /* Card da Partida */
+  .match-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 35px 45px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    max-width: 750px;
+    margin: 20px auto;
+    border: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  
+  /* Animação */
+  .animate-fade-in {
+      animation: fadeInCard 0.6s ease-out forwards;
+      opacity: 0;
+  }
+  @keyframes fadeInCard {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+  }
+  
+  
+  /* Seção Times */
+  .teams-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #edf2f7; /* Separador mais suave */
+  }
+  
+  .team {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex: 1; /* Ocupa espaço igual */
+    min-width: 100px; /* Evita encolher demais */
+  }
+  
+  .team-logo {
+    width: 75px; /* Ajuste o tamanho */
+    height: 75px;
+    object-fit: contain;
+    margin-bottom: 12px;
+  }
+  
+  .team-name {
+    font-weight: 600; /* Semi-bold */
+    font-size: 1.15em;
+    color: #2d3748; /* Azul acinzentado */
+    margin-top: 5px;
+  }
+  
+  .vs-separator {
+    font-size: 1.5em;
+    font-weight: 700;
+    color: #cbd5e0; /* Cinza claro */
+    margin: 0 25px;
+  }
+  
+  
+  /* Seção Detalhes */
+  .details-section {
+    display: flex;
+    justify-content: space-around; /* Espaça os itens */
+    align-items: flex-start; /* Alinha no topo */
+    flex-wrap: wrap; /* Quebra linha se necessário */
+    gap: 20px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #edf2f7;
+  }
+  
+  .detail-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 200px; /* Largura mínima para cada detalhe */
+    flex: 1; /* Tenta ocupar espaço igual */
+  }
+  
+  .detail-item .icon {
+    font-size: 1.8em; /* Tamanho do emoji/ícone */
+    opacity: 0.7;
+  }
+  
+  .detail-item .text {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .detail-item .label {
+    font-size: 0.8em;
+    color: #718096; /* Cinza médio */
+    text-transform: uppercase;
+    margin-bottom: 3px;
+    font-weight: 500;
+  }
+  
+  .detail-item .value {
+    font-size: 1.05em;
+    color: #2d3748;
+    font-weight: 600;
+  }
+  
+  .detail-item .sub-value {
+      font-size: 0.85em;
+      color: #4a5568;
+      margin-top: 2px;
+  }
+  .relative-time {
+      font-style: italic;
+      font-weight: 500;
+      color: #007bff; /* Azul para destaque */
+  }
+  
+  
+  /* Seção Botão */
+  .action-section {
+    text-align: center;
+  }
+  
+  .calendar-button {
+    display: inline-flex; /* Para alinhar ícone e texto */
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(to right, #FFD700, #FFC200); /* Gradiente Amarelo Furia */
+    color: #1a1a1a;
+    padding: 12px 30px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 700; /* Bold */
+    font-size: 1em;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 5px 15px rgba(255, 194, 0, 0.25);
+    border: none;
+    cursor: pointer;
+  }
+  
+  .calendar-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255, 194, 0, 0.35);
+  }
+  
+  .calendar-button .icon {
+    font-size: 1.2em; /* Tamanho do ícone '+' */
+  }
+  
+  /* Responsividade */
+  @media (max-width: 768px) {
+    .match-card {
+      padding: 25px;
+    }
+    .teams-section {
+      padding-bottom: 20px;
+    }
+    .team-logo {
+      width: 60px;
+      height: 60px;
+    }
+    .team-name {
+      font-size: 1em;
+    }
+    .vs-separator {
+      font-size: 1.3em;
+      margin: 0 15px;
+    }
+    .details-section {
+        flex-direction: column; /* Empilha detalhes */
+        align-items: center; /* Centraliza */
+        gap: 15px;
+        padding-bottom: 20px;
+    }
+    .detail-item {
+        min-width: auto;
+        width: 100%; /* Ocupa largura total */
+        justify-content: center; /* Centraliza ícone e texto */
+        text-align: center;
+    }
+     .detail-item .text {
+          align-items: center;
+      }
+  }
+  
+  @media (max-width: 480px) {
+     .upcoming-games-page h2 {
+          font-size: 1.5em;
+          margin-bottom: 25px;
+      }
+      .match-card {
+          padding: 20px 15px;
+          gap: 20px;
+      }
+       .teams-section {
+          flex-direction: column; /* Empilha times e VS */
+          gap: 10px;
+      }
+       .vs-separator {
+           transform: rotate(90deg);
+           margin: 5px 0;
+       }
+       .team-logo {
+           width: 50px;
+           height: 50px;
+       }
+       .detail-item .icon { font-size: 1.5em; }
+       .detail-item .label { font-size: 0.75em; }
+       .detail-item .value { font-size: 0.95em; }
+       .calendar-button { padding: 10px 20px; font-size: 0.9em; }
+  }

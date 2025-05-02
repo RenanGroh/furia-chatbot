@@ -1,15 +1,33 @@
-import express, { Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 import cors from "cors";
-import dotenv from "dotenv";
+import axios from "axios";
 import {
   GoogleGenerativeAI,
   HarmCategory,
   HarmBlockThreshold,
 } from "@google/generative-ai";
-// Importe seu serviço para buscar dados da FURIA (se for usar RAG)
+// Importe seu serviço para buscar dados da FURIA (RAG)
 import { getJogadoresAtuais, getProximoJogo } from "../../core/furiaService";
 
-dotenv.config();
+// INTEFACES
+interface PandaScoreMatch {
+  slug(arg0: string, slug: any): unknown;
+  id: number;
+  status: string;
+  opponents: any[]; // Simplificado por enquanto
+  league: { id: number; name: string; image_url: string | null };
+  serie: { id: number; full_name: string };
+  tournament: { id: number; name: string };
+  begin_at: string;
+  // Adicione outros campos que você usa
+}
+
+interface TeamInfo {
+  id: number;
+  name: string;
+  imageUrl: string | null;
+  // Adicione slug se precisar/quiser
+}
 
 const app = express();
 const port = process.env.API_PORT || 3001;
@@ -51,6 +69,25 @@ const safetySettings = [
     threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
   },
 ];
+
+// ==================================================
+// ====>             PANDASCORE                 <====
+// ==================================================
+const PANDASCORE_KEY = process.env.PANDASCORE_API_KEY;
+const FURIA_TEAM_ID = process.env.FURIA_CS2_TEAM_ID; // Usará o valor do .env (124530)
+const PANDASCORE_BASE_URL = "https://api.pandascore.co";
+
+// Opcional: adicionar verificação se as variáveis foram carregadas
+if (!PANDASCORE_KEY || !FURIA_TEAM_ID) {
+  console.warn(
+    "AVISO: PandaScore API Key ou FURIA Team ID não definidos no .env. A rota de próximo jogo pode falhar."
+  );
+  // Você pode decidir se quer lançar um erro ou só avisar
+  // throw new Error("Configuração PandaScore incompleta no .env");
+}
+// ==================================================
+// ====> FIM DO BLOCO PANDASCORE                <====
+// ==================================================
 
 app.post(
   "/api/chat/send-message",
@@ -203,6 +240,107 @@ app.post(
         .status(500)
         .json({ error: "Erro interno do servidor ao falar com a IA." });
       // O catch já finaliza implicitamente a execução aqui para esta requisição
+    }
+  }
+);
+
+app.get(
+  "/api/furia/next-match",
+  async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    const TEAM_ID = process.env.FURIA_CS2_TEAM_ID; // Lê o ID (FaZe ou Furia) do .env
+
+    if (!PANDASCORE_KEY || !TEAM_ID) {
+      res
+        .status(500)
+        .json({
+          message: "Configuração da API PandaScore incompleta no servidor.",
+        });
+      return;
+    }
+
+    try {
+      console.log(
+        `Buscando próximo jogo de CSGO/CS2 (not_started) envolvendo o time ID: ${TEAM_ID}`
+      );
+
+      // ====> USA O ENDPOINT GENÉRICO DE PARTIDAS CSGO COM FILTRO DE STATUS <====
+      const response = await axios.get<PandaScoreMatch[]>(
+        `${PANDASCORE_BASE_URL}/csgo/matches`,
+        {
+          headers: { Authorization: `Bearer ${PANDASCORE_KEY}` },
+          params: {
+            sort: "begin_at",
+            "page[size]": 1,
+            "filter[status]": "not_started",
+            "filter[opponent_id]": TEAM_ID,
+            // 'range[begin_at]': `${new Date().toISOString()},` // Opcional
+          },
+        }
+      );
+
+      // Como pedimos page[size]=1 e filtramos por not_started e opponent_id,
+      // a API deve retornar 0 ou 1 partida.
+      if (response.data && response.data.length > 0) {
+        const match = response.data[0];
+        console.log("Próximo jogo encontrado:", match.slug);
+
+        let opponentData: TeamInfo | null = null;
+        let queriedTeamData: TeamInfo | null = null; // Variável para guardar os dados da FURIA/Time Principal
+
+        // Encontra os dados de ambos os times na lista de oponentes da partida
+        if (match.opponents && match.opponents.length > 0) {
+          const opponentTeamPayload = match.opponents.find(
+            (op: any) => op.opponent?.id !== parseInt(TEAM_ID, 10)
+          )?.opponent; // Pega o objeto 'opponent' diretamente
+
+          const queriedTeamPayload = match.opponents.find(
+            (op: any) => op.opponent?.id === parseInt(TEAM_ID, 10)
+          )?.opponent; // Pega o objeto 'opponent' do time principal
+
+          if (opponentTeamPayload) {
+            opponentData = {
+              id: opponentTeamPayload.id,
+              name: opponentTeamPayload.name,
+              imageUrl: opponentTeamPayload.image_url,
+            };
+          }
+          if (queriedTeamPayload) {
+            queriedTeamData = {
+              id: queriedTeamPayload.id,
+              name: queriedTeamPayload.name, // Ex: "FURIA"
+              imageUrl: queriedTeamPayload.image_url, // Ex: URL do logo da FURIA
+            };
+          }
+        }
+
+        // Formata a resposta incluindo os dados do time principal
+        const nextMatchData = {
+          id: match.id,
+          status: match.status,
+          queriedTeam: queriedTeamData, // <<< ADICIONADO
+          opponent: opponentData, // <<< Renomeado para clareza (era opponent antes)
+          league: {
+            id: match.league.id,
+            name: match.league.name,
+            imageUrl: match.league.image_url,
+          },
+          serie: { id: match.serie.id, fullName: match.serie.full_name },
+          tournament: { id: match.tournament.id, name: match.tournament.name },
+          beginAt: match.begin_at,
+        };
+        res.json(nextMatchData);
+      } else {
+        console.log(
+          `Nenhum próximo jogo (not_started) encontrado para o time ID ${TEAM_ID} via /csgo/matches.`
+        );
+        res
+          .status(404)
+          .json({
+            message: `Nenhum próximo jogo encontrado para o time ID ${TEAM_ID}.`,
+          });
+      }
+    } catch (error: any) {
+      next(error);
     }
   }
 );

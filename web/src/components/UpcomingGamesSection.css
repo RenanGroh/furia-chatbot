@@ -1,16 +1,195 @@
-.upcoming-games-section {
-  /* Herda estilos de 'section' do App.css */
+/* src/components/UpcomingGamesSection.css */
+/* Estilos específicos para o WIDGET do próximo jogo (usado na HomePage) */
+
+/* Container Base e Estados */
+.upcoming-game-widget {
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  background-color: #ffffff;
+  border: 1px solid #e8edf2; /* Borda mais suave */
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06); /* Sombra mais definida */
+  /* Remover margens superiores/inferiores daqui, deixar a seção pai controlar */
+  max-width: 550px; /* Largura máxima para o widget */
+  margin: 0 auto; /* Centraliza o widget */
 }
 
-.game-info-container {
-  min-height: 60px; /* Altura mínima para o conteúdo */
-  padding: 10px;
-  background-color: #fff;
-  border: 1px solid #eee;
-  border-radius: 3px;
+.upcoming-game-widget.loading span {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-left-color: #FFC200;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-right: 8px;
+  vertical-align: middle;
 }
 
-.game-info-container p {
-  margin: 5px 0;
+.upcoming-game-widget.info-state,
+.upcoming-game-widget.loading {
+  color: #525f7f; /* Cor texto estados */
+  font-weight: 500;
+  padding: 30px 20px; /* Mais padding vertical */
+}
+
+.upcoming-game-widget.info-state.error {
+  color: #dc3545;
+  background-color: #fdecea; /* Fundo levemente avermelhado */
+  border-color: #f5c6cb;
+  font-weight: 500;
+}
+
+
+/* Conteúdo quando há jogo */
+.upcoming-game-widget.match-info {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Espaço geral entre as seções internas */
+}
+
+/* Seção Times */
+.widget-teams-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #edf2f7;
+}
+.widget-team {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+  min-width: 80px;
+}
+.widget-team-logo {
+  width: 50px; /* Tamanho ajustado para widget */
+  height: 50px;
+  object-fit: contain;
+  margin-bottom: 8px;
+}
+.widget-team-name {
+  font-weight: 600;
+  font-size: 0.95em; /* Nome um pouco menor */
+  color: #343a40;
+  max-width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.widget-vs-separator {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #ced4da; /* Cinza mais claro */
+  margin: 0 15px;
+}
+
+/* Seção Detalhes (Layout de Duas Colunas) */
+.widget-details-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Alinha no topo */
+  gap: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #edf2f7;
+}
+.widget-detail-item {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Menos gap no widget */
+  flex: 1; /* Ocupa metade (aprox.) */
+  min-width: 0; /* Permite encolher */
+}
+.widget-detail-item.tournament { text-align: left; }
+.widget-detail-item.datetime { text-align: right; justify-content: flex-end;} /* Alinha conteúdo à direita */
+.widget-detail-item.datetime .widget-text { align-items: flex-end; } /* Alinha texto interno */
+
+.widget-icon {
+  font-size: 1.5em; /* Ícone menor */
+  color: #FFC200;
+  flex-shrink: 0; /* Não deixa o ícone encolher */
+}
+.widget-text {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Evita que texto longo quebre o layout */
+}
+.widget-label {
+  font-size: 0.7em; /* Label menor */
+  color: #8898aa; /* Cinza azulado */
+  text-transform: uppercase;
+  margin-bottom: 1px;
+  font-weight: 500;
+}
+.widget-value {
+  font-size: 0.9em; /* Valor menor */
+  color: #32325d; /* Azul escuro */
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Adiciona '...' se texto for muito longo */
+}
+.widget-sub-value {
+  font-size: 0.75em;
+  color: #525f7f;
+  margin-top: 2px;
+  white-space: nowrap;
+}
+.widget-sub-value.relative-time { font-weight: 500; }
+
+
+/* Seção Botão */
+.widget-action-section {
+  text-align: center;
+}
+.widget-calendar-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(to right, #FFD700, #FFC200);
+  color: #1a1a1a;
+  padding: 8px 20px; /* Botão menor */
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: 600;
   font-size: 0.9em;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 10px rgba(255, 194, 0, 0.2);
+  border: none;
+  cursor: pointer;
+}
+.widget-calendar-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(255, 194, 0, 0.3);
+}
+.widget-button-icon { font-size: 1.1em; }
+
+/* Animação reutilizada (definida em outro lugar ou aqui) */
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Ajustes finos de responsividade para o WIDGET se necessário */
+@media (max-width: 450px) {
+    .upcoming-game-widget {
+        padding: 15px;
+    }
+    .widget-teams-section {
+         flex-direction: column;
+         gap: 8px;
+         padding-bottom: 10px;
+         border-bottom: none; /* Remover linha interna em telas pequenas */
+     }
+    .widget-vs-separator { transform: rotate(90deg); margin: 0; font-size: 1em;}
+    .widget-details-section {
+        flex-direction: column; /* Empilha detalhes */
+        align-items: center; /* Centraliza tudo */
+        gap: 10px;
+        padding-bottom: 10px;
+        border-bottom: none;
+     }
+     .widget-detail-item { width: 100%; justify-content: center; text-align: center;}
+     .widget-detail-item.datetime { justify-content: center;}
+     .widget-detail-item.datetime .widget-text { align-items: center; }
+     .widget-calendar-button { padding: 6px 15px; font-size: 0.8em; }
 }

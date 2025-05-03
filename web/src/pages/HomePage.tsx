@@ -87,7 +87,7 @@ const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* 2. Próximo Confronto */}
+      {/* 2. proximo confronto */}
       <section
         ref={nextMatchAnim.ref}
         className={`next-match-section ${
@@ -171,8 +171,6 @@ const HomePage: React.FC = () => {
             <Link to="/chat" className="community-button chat">
               Entrar no Chat
             </Link>
-            {/* Poderia adicionar ícones das redes aqui também */}
-            {/* <a href="https://twitter.com/furia" target="_blank" rel="noopener noreferrer" className="community-button social">Twitter</a> */}
           </div>
         </div>
       </section>

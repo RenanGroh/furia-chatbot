@@ -145,7 +145,7 @@ _(Adicione screenshots aqui para mostrar a aparência da aplicação!)_
 
 ##👤 Autor
 
-- **[Renan Groh]**
+- **Renan Groh**
 - **Contato:** Renangroh@gmail.com
 
 ---

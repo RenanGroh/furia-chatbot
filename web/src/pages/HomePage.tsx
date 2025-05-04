@@ -63,12 +63,10 @@ const HomePage: React.FC = () => {
           playsInline
           className="hero-background-video"
         >
-          <source src="/videos/furia-video.mp4" type="video/mp4" />{" "}
-          {/* Substitua pelo seu vídeo */}
-          Your browser does not support the video tag.
+          <source src="/videos/furia-video.mp4" type="video/mp4" /> Your browser
+          does not support the video tag.
         </video>
         {/* Opção 2: Imagem de Fundo (Comente o vídeo se usar imagem) */}
-        {/* <img src="/images/furia-hero-banner.jpg" alt="FURIA Team" className="hero-background-image"/> */}
         <div className="hero-overlay"></div> {/* Overlay escuro */}
         <div className="hero-content">
           <h1 className="hero-title animate-slide-up">

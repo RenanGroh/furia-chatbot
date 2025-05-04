@@ -2,7 +2,7 @@
   "name": "web",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://github.com/RenanGroh/furia-chatbot",
+  "homepage": "https://RenanGroh.github.io/furia-chatbot",
   "type": "module",
   "scripts": {
     "dev": "vite",

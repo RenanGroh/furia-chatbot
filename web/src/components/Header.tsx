@@ -1,5 +1,6 @@
-import React from 'react';
-import './Header.css';
+import React from "react";
+import "./Header.css";
+import furiaTeamLogo from "../assets/images/furia-logo.png";
 
 const Header: React.FC = () => {
   return (
@@ -7,7 +8,7 @@ const Header: React.FC = () => {
     <header className="app-header">
       {/* Container para agrupar logo e título */}
       <div className="header-left-section">
-        <img src="src/assets/images/furia-logo.png" alt="FURIA Logo" className="furia-logo" />
+        <img src={furiaTeamLogo} alt="FURIA Logo" className="furia-logo" />
         <div className="header-title-container">
           <h1>Furia Counter Strike 2</h1>
         </div>

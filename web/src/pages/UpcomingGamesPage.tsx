@@ -7,6 +7,8 @@ interface TeamInfo {
   imageUrl: string | null;
 }
 
+import furiaTeamLogo from "../assets/images/furia-logo.png";
+
 interface MatchData {
   id: number;
   status: string;
@@ -82,7 +84,7 @@ const UpcomingGamesPage: React.FC = () => {
   const [nextMatch, setNextMatch] = useState<MatchData | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [furiaLogo] = useState<string>("src/assets/images/furia-logo.png"); // Logo padrão
+  const [furiaLogo] = useState<string>(furiaTeamLogo); // Logo padrão
 
   useEffect(() => {
     const fetchNextMatch = async () => {
